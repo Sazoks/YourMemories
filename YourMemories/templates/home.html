@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Шапка страницы. -->
+<div class="container-fluid header">
+<div class="row">
+<!-- Если будет несколько вариантов входа -->
+{% for assoc in backends.associated %}
+    <!-- Если вошли через Facebook -->
+    {% if assoc.provider == 'facebook' %}
+    <div class="col-md-1"></div>
+    <div class="col-md-1">
+        <img src="{{assoc.extra_data.picture.data.url}}" alt="" width="80" height="80" style="border-radius: 50%">
+    </div>
+    <div class="col-md-2 mt-4 text-white">{{ assoc.extra_data.name }}</div>
+    <div class="col-md-6"></div>
+    <div class="col-md-2 mt-4">
+        <button class="btn btn-danger">
+            <a href="{% url 'logout' %}">Выход</a>
+        </button>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+</div>
+
+
+<!-- Кнопка вызова модального окна -->
+<div class="container-fluid">
+<div class="row">
+    <button type="button" class="btn btn-primary col-md-2 mx-auto mt-5" data-toggle="modal" data-target="#exampleModalCenter">
+      Вспомнить
+    </button>
+</div>
+</div>
+
+
+<!-- Форма добавления воспоминания -->
+<!-- Модальное окно -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"> Добавить воспоминание </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-3">
+                <form method="POST" action="add-mem" id="form_add_mem">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{form_memories}}
+                        <br>
+                        <small>Чтобы отметить место, щелкните по карте.</small>
+                    </div>
+                    <input type="button" id="send_btn" class="btn btn-primary" value="Добавить"/>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+            <!-- Сюда будет вставлена Яндекс.Карта. -->
+            <div id="map" class="col-md-7" style="border: 2px solid #282c34; height: 20em; border-radius: 8px;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- Футер модального окна -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Список воспоминаний -->
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-8 mx-auto mt-5" style="display: block;">
+        {% if list_places.count > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Адрес</th>
+                  <th scope="col">Название</th>
+                  <th scope="col">Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for place in list_places %}
+                <tr>
+                    <th scope="row">{{place.id}}</th>
+                    <td>{{place.place}}</td>
+                    <td>{{place.header_place}}</td>
+                    <td>{{place.description_place}}</td>
+                    <td><a href="delete/{{place.id}}">Забыть</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="text-center">Пока что у вас нечего вспомнить...<br>Давайте исправим это!</div>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}
