@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="login-form" style="background-color: #282c34; align-items: center;">
+    <div>
+        <h1 class="text-white text-center"> Your Memories </h1>
+        <div class="card p-5">
+            <div class="row">
+                <div class="col-sm-12 mb-3">
+                    <div class="text-black text-center">
+                        Your Memories - это сервис для сохранения воспоминаний, которые тронули вашу душу.
+                        Всего парой кликов мыши, и ваши воспоминания будут бережно хранить наши сервера,
+                        а вы в любой момент сможете зайти и придаться теплым чувствам.
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-5 text-center">
+                    <button class="btn btn-primary mb-2">
+                        <a href="{% url 'social:begin' 'facebook' %}">Войти с помощью Facebook</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

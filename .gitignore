@@ -1,3 +1,5 @@
 /venv
 /.idea
-YourMemories
+*__pycache__
+/YourMemories/main_app/migrations
+*sqlite3

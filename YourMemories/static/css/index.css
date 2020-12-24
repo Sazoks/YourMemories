@@ -1,0 +1,36 @@
+img {
+    border: 3px solid #282c34;
+}
+
+.login-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form > div {
+    width: 85%;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.card {
+    width: 100%;
+}
+
+.social-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn a, .btn a:hover {
+    color: white;
+    text-decoration: none ;
+}
+
+.header {
+    display: block;
+    background-color: #282c34;
+    width: 100%;
+}
