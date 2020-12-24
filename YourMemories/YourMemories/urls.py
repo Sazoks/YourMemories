@@ -18,8 +18,11 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from main_app import views
 
+
 urlpatterns = [
     path("admin", admin.site.urls),
+    path("add-mem", views.add_memories),
+    path("delete/<int:id>", views.delete_memories),
     path("login", views.login, name="login"),
     path("logout", auth_views.LogoutView.as_view(), name="logout"),
     path("social-auth", include("social_django.urls", namespace="social")),
