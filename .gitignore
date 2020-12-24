@@ -2,3 +2,4 @@
 /.idea
 *__pycache__
 /YourMemories/main_app/migrations
+*sqlite3
